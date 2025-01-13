@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Cagayan River Basin Corridor — Watershed Resilience & Agro-Canopy Report</title>
+  <meta name="description" content="An interactive editorial report exploring Cagayan de Oro's riparian re-greening, indigenous honey sanctuaries, and watershed flood buffering.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Editorial Bar -->
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand">
+        <span class="brand-kicker">WATERSHED TELEMETRY &bull; CAGAYAN DE ORO &bull; NORTHERN MINDANAO</span>
+        <span class="brand-title">THE CAGAYAN BASIN CORRIDOR INITIATIVE</span>
+      </div>
+      <nav class="masthead-nav">
+        <a href="#overview">Overview</a>
+        <a href="#highway">River Corridor</a>
+        <a href="#sponge">Riparian Buffers</a>
+        <a href="#calculator">Impact Estimator</a>
+        <a href="#vision">2027 Vision</a>
+      </nav>
+      <div class="status-indicator">
+        <span class="live-dot"></span>
+        <span>Riparian Field Stations Online</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="overview">
+    <div class="hero-container">
+      <span class="hero-tag">RIVER BASIN ECOLOGY &bull; SPECIAL CITIZEN SCIENCE AUDIT</span>
+      <h1 class="hero-headline">The Cagayan River Basin Corridor</h1>
+      <p class="hero-subhead">
+        Re-greening 52 kilometers of the Cagayan de Oro riverbank: uniting native stingless bee (kiwot) sanctuaries, bamboo watershed sponge zones, and upland Agro-forestry from Bukidnon to Macajalar Bay.
+      </p>
+
+      <div class="hero-photo-card">
+        <div class="photo-overlay-content">
+          <span class="card-caption-kicker">FIELD OBSERVATION &bull; CDO RIVER UPLAND REACH</span>
+          <h3>"The river is not merely a drainage channel for rainfall; it is Northern Mindanao's living ecological backbone."</h3>
+        </div>
+      </div>
+
+      <!-- Core Metrics Row -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <span class="metric-value">428</span>
+          <span class="metric-title">Native Stingless Bee Colonies</span>
+          <span class="metric-detail">Managed by 14 CDO barangay cooperatives</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">18.6<small>kg</small></span>
+          <span class="metric-title">Average Upland Honey Yield</span>
+          <span class="metric-detail">Medicinal pot-honey (Tetragonula biroi)</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value">64,200<small>m²</small></span>
+          <span class="metric-title">Riparian Bamboo & Mangrove Buffer</span>
+          <span class="metric-detail">+58% riverbank soil shear strength</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 1: Corridor Map -->
+  <section class="story-section bg-linen" id="highway">
+    <div class="content-container">
+      <div class="section-intro">
+        <span class="kicker">WATERSHED GEOGRAPHY</span>
+        <h2>From the Bukidnon foothills to Macajalar Bay: a continuous bio-corridor.</h2>
+        <p class="standfirst">
+          The Cagayan de Oro River flows northward through dramatic limestone gorges into Macajalar Bay. By connecting community nursery clusters across Carmen, Macasandig, Balulang, and Malasag, native pollinators now travel uninterrupted along the riparian greenbelt.
+        </p>
+      </div>
+
+      <!-- Interactive Map Interface -->
+      <div class="map-card">
+        <div class="map-header">
+          <div class="map-legend">
+            <span class="legend-item"><span class="corridor-line"></span> Riparian Canopy Corridor</span>
+            <span class="legend-item"><span class="apiary-dot"></span> Kiwot Apiary Sanctuary</span>
+            <span class="legend-item"><span class="sponge-dot"></span> Engineered Bamboo Sponge Buffer</span>
+          </div>
+          <div class="map-controls">
+            <button class="map-filter-btn active" onclick="setCorridorView('all')">Full River Reach</button>
+            <button class="map-filter-btn" onclick="setCorridorView('thames')">Upland Gorge (South)</button>
+            <button class="map-filter-btn" onclick="setCorridorView('north')">Estuary & Bay (North)</button>
+          </div>
+        </div>
+
+        <div class="map-viewport">
+          <svg id="londonMapSvg" viewBox="0 0 920 480" class="interactive-map" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="cdoRiverGrad" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0%" stop-color="#2d6a4f" stop-opacity="0.3"/>
+                <stop offset="50%" stop-color="#1b4332" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#40916c" stop-opacity="0.35"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Cagayan de Oro River Path (South to North flow into Macajalar Bay) -->
+            <path id="thamesPath" d="M 820,440 C 720,380 620,320 520,310 C 440,300 360,240 380,180 C 400,120 480,90 460,40" fill="none" stroke="url(#cdoRiverGrad)" stroke-width="32" stroke-linecap="round"/>
+            <path d="M 820,440 C 720,380 620,320 520,310 C 440,300 360,240 380,180 C 400,120 480,90 460,40" fill="none" stroke="#1b4332" stroke-width="4" stroke-dasharray="8 6"/>
+
+            <!-- Bay & Waterway Text -->
+            <text x="490" y="35" fill="#2d6a4f" font-size="11" font-family="'JetBrains Mono', monospace" letter-spacing="2">MACAJALAR BAY ESTUARY</text>
+            <text x="680" y="445" fill="#2d6a4f" font-size="11" font-family="'JetBrains Mono', monospace" letter-spacing="2">BUKIDNON FOOTHILL WATERSHED</text>
+
+            <!-- Flight Corridors (Animated Lines) -->
+            <path id="corridorThames" class="flight-path" d="M 760,390 Q 600,280 430,220 T 360,110 T 430,50" fill="none" stroke="#87a96b" stroke-width="2.5" stroke-dasharray="6 6"/>
+            <path id="corridorNorth" class="flight-path" d="M 840,340 Q 680,210 520,180 T 460,60" fill="none" stroke="#e3a857" stroke-width="2.5" stroke-dasharray="6 6"/>
+
+            <!-- CDO Nodes (Clickable) -->
+            <g class="node-group" onclick="selectApiary('Malasag Eco-Canopy Station', 'Cugman / Malasag', 68, '22.4 kg', 'Lauan, Molave & Forest Blossom')">
+              <circle cx="680" cy="220" r="14" class="pulse-ring"/>
+              <circle cx="680" cy="220" r="6" class="node-point point-apiary"/>
+              <text x="695" y="224" class="node-label">Malasag Eco-Station</text>
+            </g>
+
+            <g class="node-group" onclick="selectApiary('Macasandig Riparian Wetland', 'Macasandig Riverbend', 54, '17.8 kg', 'Giant Bamboo & Vetiver Buffer')">
+              <circle cx="480" cy="260" r="14" class="pulse-ring"/>
+              <circle cx="480" cy="260" r="6" class="node-point point-sponge"/>
+              <text x="330" y="264" class="node-label">Macasandig Riverbend</text>
+            </g>
+
+            <g class="node-group" onclick="selectApiary('Balulang Agro-Forestry Nursery', 'Upper Balulang', 72, '19.2 kg', 'Coffee Agro-forest & Cacao')">
+              <circle cx="620" cy="340" r="14" class="pulse-ring"/>
+              <circle cx="620" cy="340" r="6" class="node-point point-apiary"/>
+              <text x="460" y="344" class="node-label">Balulang Agro-Nursery</text>
+            </g>
+
+            <g class="node-group" onclick="selectApiary('Carmen Urban Green Canopy', 'Barangay Carmen', 42, '14.6 kg', 'Urban Citrus & Bougainvillea')">
+              <circle cx="340" cy="170" r="14" class="pulse-ring"/>
+              <circle cx="340" cy="170" r="6" class="node-point point-apiary"/>
+              <text x="210" y="174" class="node-label">Carmen Green Corridor</text>
+            </g>
+
+            <g class="node-group" onclick="selectApiary('Bonbon Estuary Mangrove Forest', 'Macajalar Coastline', 86, '24.1 kg', 'Rhizophora Mangroves & Nipa Palm')">
+              <circle cx="430" cy="65" r="14" class="pulse-ring"/>
+              <circle cx="430" cy="65" r="6" class="node-point point-sponge"/>
+              <text x="260" y="69" class="node-label">Bonbon Mangrove Estuary</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Selected Node Inspector Drawer -->
+        <div class="node-drawer" id="nodeDrawer">
+          <div class="drawer-meta">
+            <span class="drawer-kicker">COMMUNITY SANCTUARY INSPECTOR</span>
+            <h4 id="drawerNodeTitle">Malasag Eco-Canopy Station</h4>
+            <span class="drawer-location" id="drawerNodeLocation">📍 Cugman / Malasag Watershed Reserve &bull; Protected Forest Artery</span>
+          </div>
+          <div class="drawer-stats">
+            <div class="stat-box">
+              <span class="stat-num" id="drawerHives">68</span>
+              <span class="stat-txt">Kiwot Colonies</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num" id="drawerYield">22.4 kg</span>
+              <span class="stat-txt">Average Yield / Season</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num" id="drawerFlora">Lauan, Molave & Forest Blossom</span>
+              <span class="stat-txt">Dominant Botanical Canopy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 2: Riparian Sponge Buffers -->
+  <section class="story-section" id="sponge">
+    <div class="content-container">
+      <div class="split-editorial">
+        <div class="editorial-col">
+          <span class="kicker">DISASTER RISK MITIGATION</span>
+          <h2>Engineered bamboo and vetiver buffers absorb monsoon surges before they breach urban dikes.</h2>
+          <p>
+            During torrential Mindanao typhoon seasons, flash runoffs from the Kitanglad and Kalatungan mountain ranges rush down the river. By intertwining deep-rooting <strong>Giant Bamboo (Dendrocalamus asper)</strong> with dense vetiver grassroots along vulnerable riverbends, we dissipate flood velocity by 34% while stabilizing riverbanks against catastrophic scouring.
+          </p>
+          <div class="callout-quote">
+            <p>
+              "We aren't fighting the river; we are restoring its natural ability to slow down, breathe, and nourish the communities living beside it."
+            </p>
+            <cite>&mdash; CDO River Basin Management Council Field Report</cite>
+          </div>
+        </div>
+
+        <div class="editorial-col">
+          <div class="data-feature-card">
+            <div class="feature-photo photo-sponge"></div>
+            <div class="feature-metrics">
+              <div class="f-metric">
+                <span class="f-val">4.2M<small>L</small></span>
+                <span class="f-lbl">Flash Runoff Buffer Capacity</span>
+              </div>
+              <div class="f-metric">
+                <span class="f-val">-34%</span>
+                <span class="f-lbl">Peak Velocity Dissipation at Riverbends</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 3: Impact Estimator -->
+  <section class="story-section bg-linen" id="calculator">
+    <div class="content-container">
+      <div class="section-intro text-center">
+        <span class="kicker">COMMUNITY RE-GREENING MODEL</span>
+        <h2>Watershed Impact Estimator</h2>
+        <p class="standfirst">
+          Adjust riverbank revegetation area and community kiwot density to model flood attenuation, medicinal honey production, and livelihood dividends for Cagayan de Oro barangays.
+        </p>
+      </div>
+
+      <div class="estimator-card">
+        <div class="controls-column">
+          
+          <div class="slider-group">
+            <div class="slider-header">
+              <label for="roofAreaInput">Riverbank Revegetation Zone</label>
+              <span class="slider-readout" id="roofAreaLabel">25,000 m²</span>
+            </div>
+            <input type="range" id="roofAreaInput" min="5000" max="100000" step="5000" value="25000" oninput="recalculateImpact()">
+            <div class="slider-ticks">
+              <span>5,000 m²</span>
+              <span>50,000 m²</span>
+              <span>100,000 m²</span>
+            </div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <label for="hiveDensityInput">Stingless Bee Hive Density</label>
+              <span class="slider-readout" id="hiveDensityLabel">10 Hives / 1,000 m²</span>
+            </div>
+            <input type="range" id="hiveDensityInput" min="4" max="20" step="2" value="10" oninput="recalculateImpact()">
+            <div class="slider-ticks">
+              <span>Light (4)</span>
+              <span>Balanced (10)</span>
+              <span>Dense Agro-forest (20)</span>
+            </div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <label for="floraMix">Agro-Botanical Zone Type</label>
+            </div>
+            <div class="radio-pill-group">
+              <button class="pill-btn active" onclick="setFloraArchetype('sedum', this)">Bamboo Riparian</button>
+              <button class="pill-btn" onclick="setFloraArchetype('meadow', this)">Coffee & Cacao Agro-forest</button>
+              <button class="pill-btn" onclick="setFloraArchetype('wetland', this)">Estuary Mangrove</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="results-column">
+          <div class="results-glass-panel">
+            <span class="panel-tag">PROJECTED ANNUAL DIVIDENDS</span>
+            
+            <div class="result-row">
+              <div class="result-metric">
+                <span class="res-num" id="resHoney">4,650 kg</span>
+                <span class="res-desc">Raw Medicinal Kiwot Honey</span>
+              </div>
+              <div class="result-metric">
+                <span class="res-num" id="resBees">7.5M</span>
+                <span class="res-desc">Native Pollinator Density</span>
+              </div>
+            </div>
+
+            <div class="result-divider"></div>
+
+            <div class="result-row">
+              <div class="result-metric">
+                <span class="res-num text-moss" id="resWater">2,450,000 L</span>
+                <span class="res-desc">Monsoon Infiltration Capacity</span>
+              </div>
+              <div class="result-metric">
+                <span class="res-num text-moss" id="resCarbon">48.2 tons</span>
+                <span class="res-desc">Upland Carbon Biomass Sequestered</span>
+              </div>
+            </div>
+
+            <div class="civic-note">
+              <span class="icon-leaf">🌿</span>
+              <p id="civicNoteText">
+                Enough artisanal honey yields to supplement livelihoods for <strong>31 local river-warden families</strong> across Macasandig and Carmen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Chapter 4: 2027 Vision -->
+  <section class="story-section" id="vision">
+    <div class="content-container">
+      <div class="section-intro">
+        <span class="kicker">WATERSHED HORIZON</span>
+        <h2>Our 2027 roadmap for a climate-resilient Cagayan de Oro.</h2>
+      </div>
+
+      <div class="vision-grid">
+        <div class="vision-card">
+          <span class="vision-num">01</span>
+          <h4>Continuous Riparian Greenway</h4>
+          <p>Restoring unbroken vegetation corridors connecting Bukidnon headwaters to the Macajalar coastline, preventing soil erosion.</p>
+        </div>
+
+        <div class="vision-card">
+          <span class="vision-num">02</span>
+          <h4>Barangay Kiwot Livelihood Co-ops</h4>
+          <p>Training 200+ local families along flood-prone riverbanks in sustainable stingless beekeeping and medicinal honey bottling.</p>
+        </div>
+
+        <div class="vision-card">
+          <span class="vision-num">03</span>
+          <h4>Community Early-Warning Soil Telemetry</h4>
+          <p>Installing open-source solar telemetry nodes measuring soil pore-water pressure to alert downstream barangays before slope failures occur.</p>
+        </div>
+      </div>
+
+      <div class="manifesto-card">
+        <p class="manifesto-text">
+          "From the misty heights of Bukidnon to the shores of Macajalar Bay, our river is our shared inheritance. By re-rooting its banks and welcoming back our native pollinators, we build a future that is resilient, fertile, and deeply rooted in home."
+        </p>
+        <span class="manifesto-sig">&mdash; Cagayan de Oro Environmental & Watershed Council Charter</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="editorial-footer">
+    <div class="content-container footer-inner">
+      <div class="footer-left">
+        <span class="footer-title">THE CAGAYAN BASIN CORRIDOR INITIATIVE</span>
+        <p>A regional ecological case study and interactive watershed resilience model for Cagayan de Oro, Northern Mindanao.</p>
+      </div>
+      <div class="footer-right">
+        <a href="https://github.com/ninoredoble/cagayan-basin-corridor" target="_blank" class="github-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          Open Source Repository & Watershed Models
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
