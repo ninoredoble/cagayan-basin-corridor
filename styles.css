@@ -261,7 +261,7 @@ input[type=range] { width: 100%; height: 36px; margin: 2px 0 6px; accent-color: 
 
 /* ---------- Plate animation ---------- */
 .rain-line { stroke: #3f7fa9; stroke-linecap: round; animation: fall 0.9s linear infinite; }
-@keyframes fall { to { stroke-dashoffset: -40; } }
+@keyframes fall { to { stroke-dashoffset: -44; } }
 .flow-line { fill: none; stroke: var(--silt); stroke-linecap: round; animation: slide 1.4s linear infinite; }
 @keyframes slide { to { stroke-dashoffset: -26; } }
 .soak-drop { stroke: #8ec1e0; stroke-linecap: round; animation: sink 2.4s linear infinite; }
