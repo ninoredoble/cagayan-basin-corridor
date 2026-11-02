@@ -1,433 +1,264 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Cagayan River Basin Corridor    Watershed Hydrology & Flood Early-Warning Simulator</title>
-  <meta name="description" content="A real-time hydrological modeling engine simulating upstream rainfall-to-runoff routing from the Bukidnon mountain ranges down the 52-kilometer river corridor to urban Cagayan de Oro.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Where the rain goes: a runoff study of the Cagayan de Oro river basin</title>
+  <meta name="description" content="An interactive browser study: change the rainfall, the soil wetness and the land cover of the Cagayan de Oro river basin and see how much rain runs off. A simple, explained model with illustrative numbers. Not a forecast.">
+  <meta name="theme-color" content="#1c3830">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%231c3830%27/%3E%3Cpath d=%27M16 5c4 6 7 10 7 14a7 7 0 0 1-14 0c0-4 3-8 7-14z%27 fill=%27%239ccbe6%27/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip" href="#study">Skip to the interactive study</a>
 
-  <!-- Top Editorial Bar (Cleaned, no AI slop pulse badges) -->
-  <header class="masthead">
-    <div class="masthead-inner">
-      <div class="brand">
-        <span class="brand-kicker">WATERSHED HYDROLOGY &bull; NORTHERN MINDANAO BASIN</span>
-        <span class="brand-title">THE CAGAYAN BASIN CORRIDOR MODEL</span>
-      </div>
-      <nav class="masthead-nav">
-        <a href="#overview">Overview</a>
-        <a href="#corridor">River Network</a>
-        <a href="#simulator">Flood Simulator</a>
-        <a href="#hydrograph">Hydrograph</a>
-        <a href="#mitigation">Bio-Engineering</a>
-      </nav>
-      <div class="masthead-meta">
-        <span>CATCHMENT: 1,370 KM&sup2; &bull; DATUM: PRS92</span>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="hero-section" id="overview">
-    <div class="hero-container">
-      <span class="hero-tag">WATERSHED HYDROLOGY &bull; CAGAYAN DE ORO &bull; BUKIDNON BASIN</span>
-      <h1 class="hero-headline">Cagayan River Basin Corridor: Watershed Resilience & Flood Routing Simulator</h1>
-      <p class="hero-subhead">
-        A real-time hydrological modeling engine simulating upstream rainfall-to-runoff routing from the Bukidnon mountain ranges (Kalatungan & Kitanglad) down the 52-kilometer river corridor to urban Cagayan de Oro and Macajalar Bay.
-      </p>
-
-      <!-- Core Hydrological Metrics -->
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <span class="metric-value">1,370<small>km&sup2;</small></span>
-          <span class="metric-title">Total Drainage Basin Area</span>
-          <span class="metric-detail">Kalatungan, Kitanglad & Bukidnon Plateau</span>
-        </div>
-        <div class="metric-card">
-          <span class="metric-value">52.4<small>km</small></span>
-          <span class="metric-title">Mainstem Corridor Length</span>
-          <span class="metric-detail">Talakag headwaters to Macajalar Bay estuary</span>
-        </div>
-        <div class="metric-card">
-          <span class="metric-value">3.8 &ndash; 6.2<small>hrs</small></span>
-          <span class="metric-title">Flood Crest Propagation Lead Time</span>
-          <span class="metric-detail">Early warning travel window to Carmen Bridge</span>
-        </div>
-        <div class="metric-card">
-          <span class="metric-value">-28%</span>
-          <span class="metric-title">Peak Runoff Dissipation</span>
-          <span class="metric-detail">Attenuated by native bamboo riparian buffers</span>
-        </div>
+  <!-- Cover -->
+  <section class="cover">
+    <div class="cover-left">
+      <header class="bar">
+        <a class="wordmark" href="#top">Cagayan basin runoff study</a>
+        <nav aria-label="Sections">
+          <a href="#study">The study</a>
+          <a href="#method">How it works</a>
+          <a href="#limits">Limits</a>
+          <a href="#sources">Sources</a>
+        </nav>
+      </header>
+      <div class="cover-text" id="top">
+        <h1>Where the rain goes</h1>
+        <p class="statement">Change the storm and the ground in the Cagayan de Oro river basin, and see how much of the rain runs off.</p>
+        <p class="tag">An interactive study that runs in your browser. It uses a simple, explained model with illustrative starting numbers. It is not a forecast and not a live system.</p>
+        <a class="button" href="#study">Make a storm</a>
       </div>
     </div>
+    <figure class="cover-photo">
+      <img src="assets/kitanglad.jpg" width="1100" height="733" alt="Forested mountain range rising above farmland and scattered houses on the Bukidnon plateau, under a clear blue sky.">
+      <figcaption>Bukidnon uplands: forest on the range, farmland below it.</figcaption>
+    </figure>
   </section>
 
-  <!-- Chapter 1: Basin Topography & River Network Map -->
-  <section class="story-section bg-linen" id="corridor">
-    <div class="content-container">
-      <div class="section-intro">
-        <span class="kicker">WATERSHED TOPOGRAPHY & GAUGE NETWORK</span>
-        <h2>From Bukidnon Headwaters (2,800m) to Macajalar Bay Estuary</h2>
-        <p class="standfirst">
-          The Cagayan de Oro River drains Northern Mindanao's central mountain spine northward through rugged volcanic canyons into the urban floodplain. Click any monitoring gauge along the 52km corridor to inspect live catchment telemetry, elevation, and flood stage thresholds.
-        </p>
+  <main>
+    <!-- The live plate -->
+    <section class="study" id="study" aria-labelledby="study-h">
+      <div class="study-head">
+        <h2 id="study-h">Make a storm</h2>
+        <p>Set how much rain falls in one day, how wet the soil already is, and what covers the ground. The two tubes share one scale: the rain that fell, and the runoff that left.</p>
       </div>
 
-      <!-- Interactive Basin Map Card -->
-      <div class="map-card">
-        <div class="map-header">
-          <div class="map-legend">
-            <span class="legend-item"><span class="legend-line line-river"></span> Mainstem River Channel</span>
-            <span class="legend-item"><span class="legend-line line-buffer"></span> Agro-Forestry Riparian Buffer</span>
-            <span class="legend-item"><span class="legend-dot dot-station"></span> Active Hydrometric Station</span>
+      <noscript><p class="nojs">This study needs JavaScript to run its model. The method is written out in full further down the page.</p></noscript>
+
+      <div class="study-grid">
+        <div class="left">
+          <div class="plate-wrap">
+            <figure class="plate">
+              <svg id="plate" viewBox="0 0 800 480" role="img" aria-labelledby="plate-t plate-d" preserveAspectRatio="xMidYMid slice">
+                <title id="plate-t">Cross-section of the basin from ridge to bay</title>
+                <desc id="plate-d">A hillside runs from a forested ridge on the left down to a river mouth and a bay on the right. Rain falls on it. Water runs along the surface, soaks into the ground, and enters the river. Two glass tubes on the right show rain and runoff on the same scale.</desc>
+                <defs>
+                  <clipPath id="above-ground"><path id="above-ground-path" d=""/></clipPath>
+                  <clipPath id="sea-clip"><rect x="700" y="372" width="100" height="108"/></clipPath>
+                  <clipPath id="soil-clip"><path id="soil-clip-path" d=""/></clipPath>
+                </defs>
+                <rect class="sky" width="800" height="480"/>
+                <path class="far-range" d="M0 150 L70 96 L120 124 L190 70 L260 120 L330 92 L400 140 L480 196 L560 290 L640 372 L640 480 L0 480 Z"/>
+                <g class="cloud">
+                  <ellipse cx="90" cy="30" rx="120" ry="30"/>
+                  <ellipse cx="250" cy="22" rx="130" ry="34"/>
+                  <ellipse cx="420" cy="30" rx="130" ry="30"/>
+                  <ellipse cx="560" cy="20" rx="110" ry="30"/>
+                  <ellipse cx="740" cy="26" rx="110" ry="30"/>
+                </g>
+                <g id="rain" clip-path="url(#above-ground)"></g>
+                <path class="earth" id="earth" d=""/>
+                <g id="soak" clip-path="url(#soil-clip)"></g>
+                <g id="cover-bands"></g>
+                <g id="cover-glyphs"></g>
+                <g id="flow"></g>
+                <rect class="sea" x="700" y="372" width="100" height="108"/>
+                <ellipse class="plume" id="plume" cx="700" cy="376" rx="10" ry="6" clip-path="url(#sea-clip)"/>
+                <path class="river" id="river" d=""/>
+                <g id="gauges"></g>
+              </svg>
+            </figure>
+            <p class="plate-note" id="plate-note"></p>
+            <div class="split" aria-hidden="true"><span id="split-kept"></span><span id="split-run"></span></div>
           </div>
-          <div class="map-controls">
-            <button class="map-filter-btn active" onclick="setCorridorFilter('all', this)">Full Basin Reach</button>
-            <button class="map-filter-btn" onclick="setCorridorFilter('upland', this)">Upper Catchment</button>
-            <button class="map-filter-btn" onclick="setCorridorFilter('urban', this)">Urban Floodplain</button>
+
+          <div class="figures" id="figures">
+            <div class="fig">
+              <span class="fig-label">Runs off</span>
+              <span class="fig-num silt" id="fig-runoff">0<small> mm</small></span>
+              <span class="fig-sub" id="fig-share"></span>
+            </div>
+            <div class="fig">
+              <span class="fig-label">Stays on the land</span>
+              <span class="fig-num water" id="fig-kept">0<small> mm</small></span>
+              <span class="fig-sub">Soaks in or is held by plants and puddles</span>
+            </div>
+            <div class="fig">
+              <span class="fig-label">Across the basin</span>
+              <span class="fig-num" id="fig-volume">0<small> million m&sup3;</small></span>
+              <span class="fig-sub">If the rain fell evenly on about 1,370 km&sup2;</span>
+            </div>
           </div>
+          <p class="hint schematic">Schematic drawing, not to scale. The tubes and the bar show the model's numbers; the river and the plume only echo them.</p>
         </div>
 
-        <div class="map-viewport">
-          <svg id="basinSvg" viewBox="0 0 960 520" class="basin-svg" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="riverGradient" x1="0" y1="1" x2="0" y2="0">
-                <stop offset="0%" stop-color="#1b4332"/>
-                <stop offset="50%" stop-color="#2d6a4f"/>
-                <stop offset="100%" stop-color="#40916c"/>
-              </linearGradient>
-              <linearGradient id="bayGradient" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#1f618d" stop-opacity="0.15"/>
-                <stop offset="100%" stop-color="#2980b9" stop-opacity="0.25"/>
-              </linearGradient>
-            </defs>
-
-            <!-- Background Topographic Contours (Bukidnon mountains to Coast) -->
-            <!-- Macajalar Bay Water Body at Top -->
-            <path d="M 0,0 L 960,0 L 960,75 C 800,90 640,60 480,75 C 320,90 160,70 0,85 Z" fill="url(#bayGradient)"/>
-            <text x="480" y="38" fill="#1f618d" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="600" letter-spacing="3" text-anchor="middle">MACAJALAR BAY &bull; BOHOL SEA</text>
-
-            <!-- Mountain Range Outlines in South (Bottom) -->
-            <path d="M 50,520 Q 200,420 380,480 T 700,430 T 960,500 L 960,520 Z" fill="#e2ded4" opacity="0.6"/>
-            <path d="M 120,520 Q 320,380 540,440 T 880,410 L 960,520 Z" fill="#d5d0c3" opacity="0.5"/>
-            <text x="760" y="495" fill="#738277" font-family="'JetBrains Mono', monospace" font-size="10" letter-spacing="2">MT. KALATUNGAN (2,860m)</text>
-            <text x="220" y="505" fill="#738277" font-family="'JetBrains Mono', monospace" font-size="10" letter-spacing="2">MT. KITANGLAD (2,899m)</text>
-
-            <!-- Riparian Vegetation Buffer Envelope (Green Shading) -->
-            <path d="M 530,470 Q 490,410 460,370 T 480,280 T 430,200 T 470,130 L 495,130 Q 460,200 505,280 T 485,370 Q 515,410 550,470 Z" fill="#588157" fill-opacity="0.22"/>
-
-            <!-- Main Cagayan River Channel (South to North Flow) -->
-            <!-- Tributary 1: Bubunawan River joining from East -->
-            <path d="M 780,380 C 700,340 600,320 480,285" fill="none" stroke="#2d6a4f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-            <text x="690" y="345" fill="#2d6a4f" font-family="'JetBrains Mono', monospace" font-size="9" letter-spacing="1">Bubunawan Inflow &nearr;</text>
-
-            <!-- Mainstem Channel -->
-            <path id="mainRiverPath" d="M 540,470 C 500,410 465,370 475,320 C 485,270 435,210 445,160 C 450,130 485,100 485,72" fill="none" stroke="url(#riverGradient)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- River Flow Direction Centerline -->
-            <path d="M 540,470 C 500,410 465,370 475,320 C 485,270 435,210 445,160 C 450,130 485,100 485,72" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="8 6"/>
-
-            <!-- Station 01: Talakag Mountain Headwaters -->
-            <g class="station-node" id="node-talakag" onclick="selectStation('talakag')">
-              <circle cx="540" cy="470" r="14" fill="#ffffff" stroke="#1b4332" stroke-width="2"/>
-              <circle cx="540" cy="470" r="6" fill="#1b4332" class="station-marker"/>
-              <text x="565" y="474" class="station-label">01. Talakag Headwaters</text>
-              <text x="565" y="488" class="station-sublabel">Elev 820m &bull; Catchment 620 km&sup2;</text>
-            </g>
-
-            <!-- Station 02: Kabula River Gorge -->
-            <g class="station-node" id="node-kabula" onclick="selectStation('kabula')">
-              <circle cx="475" cy="350" r="14" fill="#ffffff" stroke="#1b4332" stroke-width="2"/>
-              <circle cx="475" cy="350" r="6" fill="#1b4332" class="station-marker"/>
-              <text x="320" y="354" class="station-label" text-anchor="end">02. Kabula River Gorge</text>
-              <text x="320" y="368" class="station-sublabel" text-anchor="end">Elev 145m &bull; Canyon Chokepoint</text>
-            </g>
-
-            <!-- Station 03: Bubunawan Confluence -->
-            <g class="station-node" id="node-bubunawan" onclick="selectStation('bubunawan')">
-              <circle cx="485" cy="285" r="14" fill="#ffffff" stroke="#1b4332" stroke-width="2"/>
-              <circle cx="485" cy="285" r="6" fill="#1b4332" class="station-marker"/>
-              <text x="510" y="285" class="station-label">03. Bubunawan Confluence</text>
-              <text x="510" y="299" class="station-sublabel">Elev 85m &bull; Tributary Inflow</text>
-            </g>
-
-            <!-- Station 04: Macasandig Floodway Ingress -->
-            <g class="station-node" id="node-macasandig" onclick="selectStation('macasandig')">
-              <circle cx="440" cy="210" r="14" fill="#ffffff" stroke="#1b4332" stroke-width="2"/>
-              <circle cx="440" cy="210" r="6" fill="#1b4332" class="station-marker"/>
-              <text x="290" y="212" class="station-label" text-anchor="end">04. Macasandig Floodway</text>
-              <text x="290" y="226" class="station-sublabel" text-anchor="end">Elev 22m &bull; Urban Dike Ingress</text>
-            </g>
-
-            <!-- Station 05: Carmen Bridge & Isla de Oro -->
-            <g class="station-node active" id="node-carmen" onclick="selectStation('carmen')">
-              <circle cx="450" cy="140" r="16" fill="#ffffff" stroke="#d97706" stroke-width="3"/>
-              <circle cx="450" cy="140" r="7" fill="#d97706" class="station-marker"/>
-              <text x="475" y="138" class="station-label" fill="#18221b">05. Carmen Bridge Gauge</text>
-              <text x="475" y="152" class="station-sublabel">Elev 8.2m &bull; Primary Urban Chokepoint</text>
-            </g>
-
-            <!-- Station 06: Puntod Estuary Outfall -->
-            <g class="station-node" id="node-puntod" onclick="selectStation('puntod')">
-              <circle cx="485" cy="74" r="14" fill="#ffffff" stroke="#1f618d" stroke-width="2"/>
-              <circle cx="485" cy="74" r="6" fill="#1f618d" class="station-marker"/>
-              <text x="510" y="72" class="station-label">06. Puntod Estuary Outfall</text>
-              <text x="510" y="86" class="station-sublabel">Elev 1.2m &bull; Macajalar Bay Mouth</text>
-            </g>
-          </svg>
-        </div>
-
-        <!-- Selected Station Telemetry Drawer -->
-        <div class="station-drawer" id="stationDrawer">
-          <div class="drawer-info">
-            <span class="drawer-kicker">HYDROMETRIC SENSOR TELEMETRY</span>
-            <h4 id="drawerTitle">Station 05: Carmen Bridge & Isla de Oro Chokepoint</h4>
-            <span class="drawer-location" id="drawerLocation">Downtown Urban Core Reach &bull; Redundant Radar Gauge</span>
-            <p id="drawerDesc" style="font-size: 13px; color: var(--ink-secondary); margin-top: 6px; line-height: 1.5;">
-              Primary civic reference point for city evacuation. Low bridge clearance and mid-river sandbar historical accretion make this the most sensitive flood stage indicator.
-            </p>
-          </div>
-          <div class="drawer-metrics">
-            <div class="d-metric-box">
-              <span class="d-val" id="drawerElev">8.2m ASL</span>
-              <span class="d-lbl">Bed Elevation</span>
+        <form class="controls" id="controls" onsubmit="return false" aria-label="Storm and land controls">
+          <fieldset>
+            <legend>Rain in one day</legend>
+            <div class="slider-row">
+              <label for="rain-input">Rainfall</label>
+              <output id="rain-out" for="rain-input">120 mm</output>
             </div>
-            <div class="d-metric-box">
-              <span class="d-val" id="drawerArea">1,340 km&sup2;</span>
-              <span class="d-lbl">Catchment Area</span>
+            <input type="range" id="rain-input" min="0" max="300" step="1" value="120">
+            <div class="presets" role="group" aria-label="Rainfall presets">
+              <button type="button" data-rain="30">A wet day<span>30 mm</span></button>
+              <button type="button" data-rain="100">A heavy day<span>100 mm</span></button>
+              <button type="button" data-rain="181">Washi, Dec 2011<span>181 mm</span></button>
             </div>
-            <div class="d-metric-box">
-              <span class="d-val" id="drawerFlow">1,840 m&sup3;/s</span>
-              <span class="d-lbl">Discharge Rate</span>
+            <p class="hint" id="rain-hint">Washi (local name Sendong) was a tropical storm. 181 mm is the reading its heaviest day gave at the PAGASA gauge in Cagayan de Oro; gauges in the uplands reported more.</p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Soil before the rain</legend>
+            <div class="seg" role="radiogroup" aria-label="Soil wetness">
+              <label><input type="radio" name="wet" value="dry"><span>Dry</span></label>
+              <label><input type="radio" name="wet" value="average" checked><span>Average</span></label>
+              <label><input type="radio" name="wet" value="soaked"><span>Soaked</span></label>
             </div>
-            <div class="d-metric-box">
-              <span class="d-val" id="drawerStage">4.62m</span>
-              <span class="d-lbl">Stage Height</span>
+            <p class="hint">Soaked ground has little room left, so more of the next rain runs off.</p>
+          </fieldset>
+
+          <fieldset>
+            <legend>What covers the ground</legend>
+            <div id="cover-sliders"></div>
+            <p class="hint">Moving one share rescales the others so the basin always adds up to 100%. The starting mix is illustrative, not a land-cover survey.</p>
+            <div class="presets" role="group" aria-label="Land cover presets">
+              <button type="button" data-mix="30,25,35,10">Starting mix</button>
+              <button type="button" data-mix="100,0,0,0">All forest</button>
+              <button type="button" data-mix="5,10,80,5">Cleared for crops</button>
+              <button type="button" data-mix="20,20,30,30">Town spreads</button>
             </div>
-            <div class="d-metric-box">
-              <span class="d-val" id="drawerLeadTime">0.0 hrs</span>
-              <span class="d-lbl">Transit Offset</span>
-            </div>
-            <div class="d-metric-box" style="justify-content: center;">
-              <span class="d-status-pill status-watch" id="drawerStatus">WATCH</span>
-            </div>
-          </div>
-        </div>
+          </fieldset>
+        </form>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Chapter 2: Runoff Hydrological Simulator & Flood Early-Warning Model -->
-  <section class="story-section" id="simulator">
-    <div class="content-container">
-      <div class="section-intro">
-        <span class="kicker">HYDROLOGICAL SIMULATION & ROUTING ENGINE</span>
-        <h2>Rainfall-to-Runoff Early-Warning Calculator</h2>
-        <p class="standfirst">
-          Simulate flood wave generation by adjusting precipitation intensity across the Bukidnon headwaters and catchment soil saturation. Toggle the Nature-Based Bamboo Buffer to see instant hydrograph attenuation and warning lead time preservation.
-        </p>
+    <!-- Same storm, different ground -->
+    <section class="ground" aria-labelledby="ground-h">
+      <div class="ground-head">
+        <h2 id="ground-h">Same rain, different ground</h2>
+        <p>Each bar is the whole day&rsquo;s rain. The brown part ran off. The top four show the basin as a single cover; the last bar is your own mix.</p>
+      </div>
+      <div class="bars" id="bars" role="list"></div>
+    </section>
+
+    <!-- The method, printed as a slip -->
+    <section class="method" id="method" aria-labelledby="method-h">
+      <div class="method-text">
+        <h2 id="method-h">How the number is made</h2>
+        <p>This is the curve-number method, a standard hydrology tool for turning one day of rain into one day of runoff. It has five steps, and the slip beside this text works them out for the storm you have set.</p>
+        <ol class="steps">
+          <li>Each land cover gets a <strong>curve number</strong>, CN. The higher it is, the less rain the ground can take. These are the standard table values for ground in good condition on medium-draining soil.</li>
+          <li>Soil wetness shifts the curve number: soaked ground acts like a higher number, dry ground like a lower one.</li>
+          <li>The ground's holding capacity is <strong>S&nbsp;=&nbsp;25,400&nbsp;&divide;&nbsp;CN&nbsp;&minus;&nbsp;254</strong>, in millimetres. The first fifth of it is lost before any runoff starts.</li>
+          <li>Runoff for the day is <strong>Q&nbsp;=&nbsp;(P&nbsp;&minus;&nbsp;0.2&nbsp;S)&sup2;&nbsp;&divide;&nbsp;(P&nbsp;+&nbsp;0.8&nbsp;S)</strong>, where P is the rain. If P is no more than 0.2&nbsp;S, nothing runs off.</li>
+          <li>Average the four runoffs, weighted by how much of the basin each cover takes up.</li>
+        </ol>
       </div>
 
-      <div class="simulator-card">
-        <!-- Controls Column -->
-        <div class="sim-controls">
-          
-          <!-- Rainfall Intensity Slider -->
-          <div class="control-group">
-            <div class="control-header">
-              <label for="rainInput" class="control-label">Headwater Precipitation Intensity</label>
-              <span class="control-value" id="rainLabel">45 mm/hr</span>
-            </div>
-            <input type="range" id="rainInput" class="range-slider" min="5" max="100" step="5" value="45" oninput="recalculateHydrology()">
-            <div class="slider-scale">
-              <span>5 mm/hr (Light)</span>
-              <span>50 mm/hr (Heavy)</span>
-              <span>100 mm/hr (Extreme)</span>
-            </div>
-            <!-- Quick Presets -->
-            <div class="preset-buttons">
-              <button type="button" class="preset-btn" onclick="setRainfallPreset(15, 30)">Monsoon (15 mm/hr)</button>
-              <button type="button" class="preset-btn" onclick="setRainfallPreset(45, 65)">Storm Surge (45 mm/hr)</button>
-              <button type="button" class="preset-btn" onclick="setRainfallPreset(85, 90)">Typhoon Sendong Benchmark (85 mm/hr)</button>
-            </div>
-          </div>
-
-          <!-- Soil Moisture Saturation Slider -->
-          <div class="control-group">
-            <div class="control-header">
-              <label for="satInput" class="control-label">Catchment Soil Moisture Saturation</label>
-              <span class="control-value" id="satLabel">65% Saturated</span>
-            </div>
-            <input type="range" id="satInput" class="range-slider" min="10" max="100" step="5" value="65" oninput="recalculateHydrology()">
-            <div class="slider-scale">
-              <span>10% (Dry High Infiltration)</span>
-              <span>60% (Typical Wet Season)</span>
-              <span>100% (Fully Waterlogged)</span>
-            </div>
-          </div>
-
-          <!-- Riparian Agro-Forestry Buffer Switch -->
-          <div class="buffer-toggle-row">
-            <div class="toggle-info">
-              <span class="toggle-title">Native Bamboo & Vetiver Buffer Belt</span>
-              <span class="toggle-desc">38 km vegetative root retention along floodway banks</span>
-            </div>
-            <label class="switch">
-              <input type="checkbox" id="bufferToggle" checked onchange="toggleBuffer()">
-              <span class="slider-round"></span>
-            </label>
-          </div>
-
-          <p style="font-size: 12px; color: var(--ink-muted); line-height: 1.5;">
-            *Calculated using Rational Method $Q = C \cdot I \cdot A$ with Muskingum flood routing calibrated against the 1,370 km&sup2; Cagayan River Basin hydrologic soil group (HSG) C/D volcanic loam.
-          </p>
-        </div>
-
-        <!-- Readout & Advisory Column -->
-        <div class="sim-readout-panel">
-          
-          <!-- Dynamic Alert Banner -->
-          <div class="alert-card alert-watch" id="alertBanner">
-            <span class="alert-icon" id="alertIcon">&Delta;</span>
-            <div class="alert-content">
-              <h4 class="alert-title" id="alertTitle">YELLOW WATCH &bull; MONSOON SURGE IN PROGRESS</h4>
-              <p class="alert-desc" id="alertDesc">
-                River stage has elevated. Upstream headwaters are saturated. Barangays Macasandig, Balulang, and Carmen placed on early warning standby.
-              </p>
-            </div>
-          </div>
-
-          <!-- Simulation Metrics Grid -->
-          <div class="sim-grid">
-            <div class="sim-box">
-              <span class="sim-box-val" id="resDischarge">2,245 <small>m&sup3;/s</small></span>
-              <span class="sim-box-lbl">Peak Urban Discharge ($Q_{peak}$)</span>
-              <span class="sim-box-detail">At Carmen Bridge Chokepoint</span>
-            </div>
-            <div class="sim-box">
-              <span class="sim-box-val" id="resStage">5.12 <small>meters</small></span>
-              <span class="sim-box-lbl">Water Stage Elevation</span>
-              <span class="sim-box-detail">Urban Floodwall Crest: 7.50m</span>
-            </div>
-            <div class="sim-box">
-              <span class="sim-box-val" id="resLeadTime">4.1 <small>hours</small></span>
-              <span class="sim-box-lbl">Flood Crest Arrival Window</span>
-              <span class="sim-box-detail">Transit time from Bukidnon headwaters</span>
-            </div>
-            <div class="sim-box">
-              <span class="sim-box-val" id="resBufferReduction" style="color: var(--color-river);">-620 <small>m&sup3;/s (-28%)</small></span>
-              <span class="sim-box-lbl">Vegetative Buffer Dampening</span>
-              <span class="sim-box-detail">Peak volume absorbed & delayed</span>
-            </div>
-          </div>
-
-        </div>
+      <div class="slip" aria-live="off">
+        <p class="slip-title" id="slip-title">Your storm</p>
+        <ul class="slip-rows" id="slip-rows"></ul>
+        <p class="slip-total"><span>Basin runoff, weighted</span><span id="slip-total">0 mm</span></p>
       </div>
+    </section>
 
-      <!-- Hydrograph Section -->
-      <div class="hydrograph-card" id="hydrograph">
-        <div class="hydrograph-header">
-          <div class="hydrograph-title-group">
-            <h3>24-Hour Flood Routing Hydrograph (Carmen Bridge Chokepoint)</h3>
-            <p>Visualizing flood wave attenuation, peak flattening, and crest delay under vegetative buffer retention.</p>
-          </div>
-          <div class="hydrograph-legend">
-            <span><span class="legend-curve-bare"></span> Bare Deforested Runoff</span>
-            <span><span class="legend-curve-buffered"></span> Bamboo & Agroforestry Buffer</span>
-            <span><span class="legend-threshold"></span> 3,600 m&sup3;/s Dike Capacity</span>
-          </div>
-        </div>
+    <!-- A walk down the basin, tipped-in plates -->
+    <section class="walk" aria-labelledby="walk-h">
+      <h2 id="walk-h">From the ridge to the bay</h2>
+      <p class="walk-lead">The plate above draws the slope in four bands. These are the kinds of ground it stands for.</p>
 
-        <div class="hydrograph-stage">
-          <svg id="hydrographSvg" class="hydrograph-svg" viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
-            <!-- Rendered dynamically by app.js -->
-          </svg>
-        </div>
+      <div class="walk-grid">
+        <figure class="plate-photo p-ridge">
+          <img src="assets/kitanglad.jpg" width="1100" height="733" loading="lazy" alt="Forested mountain range above farmland, Bukidnon.">
+          <figcaption>
+            <strong>Ridge and forest.</strong> Trees and leaf litter hold the first of the rain. In the model, forest has a curve number of 55, the lowest of the four.
+          </figcaption>
+        </figure>
+
+        <figure class="plate-photo p-crops">
+          <img src="assets/pineapple.jpg" width="1100" height="618" loading="lazy" alt="Close view of pineapple plants with fruit growing among long spiky leaves.">
+          <figcaption>
+            <strong>Row crops.</strong> Pineapple plants near Camp Phillips, Manolo Fortich, Bukidnon, on a neighbouring plateau. Bare soil between the plants lets more rain run off, so the model gives row crops a curve number of 78.
+          </figcaption>
+        </figure>
+
+        <figure class="plate-photo p-city">
+          <img src="assets/river-carmen.jpg" width="1100" height="825" loading="lazy" alt="The Cagayan de Oro river flowing under a bridge, with buildings on both banks.">
+          <figcaption>
+            <strong>River and town.</strong> The Cagayan de Oro River at Carmen, 2023. Roofs and roads send most of a heavy rain straight to the drains, so the model gives town ground a curve number of 92.
+          </figcaption>
+        </figure>
+
+        <figure class="plate-photo p-bay">
+          <img src="assets/washi-nasa.jpg" width="1100" height="1100" loading="lazy" alt="Satellite view of Cagayan de Oro and Macajalar Bay. Brown river water spreads into the dark blue sea from the river mouths.">
+          <figcaption>
+            <strong>Bay.</strong> Satellite image after Tropical Storm Washi, December 2011. Silt-brown river water spreads out into Macajalar Bay. The plate's plume grows the same way as runoff rises.
+          </figcaption>
+        </figure>
       </div>
+    </section>
 
-    </div>
-  </section>
-
-  <!-- Chapter 3: Bio-Engineering & Nature-Based Solutions -->
-  <section class="story-section bg-linen" id="mitigation">
-    <div class="content-container">
-      <div class="split-editorial">
-        <div class="editorial-col">
-          <span class="kicker">WATERSHED RESILIENCE STRATEGY</span>
-          <h2>Nature-Based Engineering vs. Concrete Dikes: Why Living Buffers Save Cities.</h2>
-          <p>
-            During extreme rainfall events, relying solely on concrete floodwalls creates catastrophic failure modes when flood stages exceed design limits. By combining physical revetments with an extensive <strong>Giant Bamboo (Dendrocalamus asper)</strong> and vetiver grass vegetative bio-shield along 38 kilometers of upstream riverbanks, the watershed achieves natural hydraulic roughness.
-          </p>
-          <p>
-            Deep rhizome root networks bind unstable alluvial soils, increasing shear resistance by 58% and arresting mass slumping, while vegetative friction flattens the hydrograph crest, preserving critical evacuation lead time for downstream barangays.
-          </p>
-          <div class="callout-quote">
-            <p>
-              "Concrete repels water at high velocity; vegetative root networks absorb, detain, and calm the river's energy before it reaches human settlements."
-            </p>
-            <cite>&mdash; CDO River Basin Management Council Technical Report</cite>
-          </div>
-        </div>
-
-        <div class="editorial-col">
-          <table class="tech-table">
-            <thead>
-              <tr>
-                <th>Hydrological Factor</th>
-                <th>Channelized Concrete</th>
-                <th>Living Bamboo Buffer</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Manning's Roughness ($n$)</strong></td>
-                <td>0.015 (High Velocity)</td>
-                <td>0.055 (Energy Dissipation)</td>
-              </tr>
-              <tr>
-                <td><strong>Peak Flood Delay</strong></td>
-                <td>0.0 hrs (Instant Surge)</td>
-                <td>+1.8 hrs Warning Lead Time</td>
-              </tr>
-              <tr>
-                <td><strong>Soil Shear Strength</strong></td>
-                <td>Zero Root Cohesion</td>
-                <td>+58% Root Reinforcement</td>
-              </tr>
-              <tr>
-                <td><strong>Sediment Trapping</strong></td>
-                <td>Silt Flush to Estuary</td>
-                <td>82% Upstream Trapping</td>
-              </tr>
-              <tr>
-                <td><strong>Co-benefits</strong></td>
-                <td>Thermal Heat Sink</td>
-                <td>Agro-Forestry & Carbon Sinks</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <!-- Limits -->
+    <section class="limits" id="limits" aria-labelledby="limits-h">
+      <h2 id="limits-h">What this leaves out</h2>
+      <div class="limits-grid">
+        <p class="limits-lead">It answers one question well enough to see the shape of the answer. It cannot tell you whether a river will flood.</p>
+        <ul class="limits-list">
+          <li><strong>One day, one total.</strong> There is no clock. It gives the depth of runoff, not when the flood peak arrives or how high the river rises.</li>
+          <li><strong>Even rain.</strong> The same rain falls on every corner of the basin. Real storms are patchy: on the night of Washi, upland gauges reported more than the city gauge.</li>
+          <li><strong>Borrowed numbers.</strong> The curve numbers come from standard tables written for small catchments, and the soil is assumed to be one medium-draining type. Nobody has calibrated them to this basin here.</li>
+          <li><strong>Invented mix.</strong> The starting land-cover shares are illustrative. They are not measured from this basin.</li>
+          <li><strong>No channels, slopes or river banks.</strong> Bamboo planted along the river, levees and floodways are not in the model.</li>
+        </ul>
+        <p class="limits-care">For warnings and forecasts, use PAGASA bulletins and your local disaster risk reduction office. This page is a study aid.</p>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- Site Footer -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <h5>The Cagayan River Basin Corridor Model</h5>
-        <p>Northern Mindanao Hydrological Resilience & Flood Routing Simulator &bull; CDO Basin Watershed</p>
+  <!-- Back of the card -->
+  <footer class="back" id="sources">
+    <svg class="scallop" viewBox="0 0 1200 28" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path id="scallop-path" d=""/></svg>
+    <div class="back-card">
+      <div class="back-left">
+        <p class="back-sign">About this study</p>
+        <p>A browser study by Niño Redoble, written as a field guide to one idea. It is a static page: plain HTML, CSS and JavaScript, no server, no data feed, nothing sent anywhere. Every number on it comes from the model on this page or from the sources listed.</p>
+        <p><a href="https://github.com/ninoredoble/cagayan-basin-corridor">Source code on GitHub</a></p>
       </div>
-      <div class="footer-links">
-        <a href="https://github.com/ninoredoble/cagayan-basin-corridor" target="_blank" rel="noopener noreferrer">Source Code Repository &nearr;</a>
+      <div class="back-right">
+        <p class="back-sign">Sources</p>
+        <ul class="sources-list">
+          <li><a href="https://en.wikipedia.org/wiki/Runoff_curve_number">Runoff curve number</a>, the method and its US Department of Agriculture origin (TR-55).</li>
+          <li><a href="https://en.wikipedia.org/wiki/Tropical_Storm_Washi">Tropical Storm Washi</a>, December 2011 rainfall reports.</li>
+        </ul>
+        <p class="back-sign">Pictures</p>
+        <ul class="sources-list credits">
+          <li>Kitanglad: &ldquo;Mount Kitanglad Range Natural Park&rdquo; by Aichiarchive, <a href="https://creativecommons.org/licenses/by/4.0">CC BY 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Mount_Kitanglad_Range_Natural_Park.jpg">Wikimedia Commons</a>.</li>
+          <li>Pineapple field: by Obsidian Soul, CC0, via <a href="https://commons.wikimedia.org/wiki/File:Del_Monte_Pineapple_field_at_Camp_Philips,_Bukidnon,_Philippines_01.jpg">Wikimedia Commons</a>.</li>
+          <li>River at Carmen: by Patrickroque01, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Cagayan_De_Oro_River,_Borja_Bridge_Carmen_(Cagayan_De_Oro_City;_12-08-2023).jpg">Wikimedia Commons</a>.</li>
+          <li>Macajalar Bay after Washi: NASA Earth Observatory, public domain, via <a href="https://commons.wikimedia.org/wiki/File:Cagayan_De_Oro_Aftermath_Typhoon_Washi.jpg">Wikimedia Commons</a>.</li>
+        </ul>
       </div>
+      <p class="imprint">Illustrative study, not a forecast. Photographs are resized copies of the originals.</p>
     </div>
   </footer>
 
+  <script src="runoff.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
